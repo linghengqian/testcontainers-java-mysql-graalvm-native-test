@@ -1,6 +1,6 @@
 ## testcontainers-java-mysql-graalvm-native-test
 
-- For https://github.com/apache/shardingsphere/pull/29357 .
+- For https://github.com/apache/shardingsphere/pull/29357 and https://github.com/testcontainers/testcontainers-java/issues/7954 .
 
 - `mysql-default-conf/` is from https://github.com/testcontainers/testcontainers-java/blob/1.19.3/modules/mysql/src/main/resources/mysql-default-conf/my.cnf .
 
