@@ -1,0 +1,9 @@
+{
+  "resources":{
+  "includes":[{
+    "pattern":"\\Qmysql-default-conf\\E"
+  }, {
+    "pattern":"\\Qmysql-default-conf/my.cnf\\E"
+  }]},
+  "bundles":[]
+}

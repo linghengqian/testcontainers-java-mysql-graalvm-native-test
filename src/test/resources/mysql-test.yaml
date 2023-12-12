@@ -1,0 +1,61 @@
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    jdbcUrl: jdbc:tc:mysql:8.2.0-oracle://test-native-databases-mysql/demo_ds_0
+    username: root
+    password: 123456
+  ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    jdbcUrl: jdbc:tc:mysql:8.2.0-oracle://test-native-databases-mysql/demo_ds_1
+    username: root
+    password: 123456
+  ds_2:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    jdbcUrl: jdbc:tc:mysql:8.2.0-oracle://test-native-databases-mysql/demo_ds_2
+    username: root
+    password: 123456
+
+rules:
+- !SHARDING
+  tables:
+    t_order:
+      actualDataNodes:
+      keyGenerateStrategy:
+        column: order_id
+        keyGeneratorName: snowflake
+    t_order_item:
+      actualDataNodes:
+      keyGenerateStrategy:
+        column: order_item_id
+        keyGeneratorName: snowflake
+  defaultDatabaseStrategy:
+    standard:
+      shardingColumn: user_id
+      shardingAlgorithmName: inline
+  shardingAlgorithms:
+    inline:
+      type: CLASS_BASED
+      props:
+        strategy: STANDARD
+        algorithmClassName: org.apache.shardingsphere.test.natived.jdbc.commons.algorithm.ClassBasedInlineShardingAlgorithmFixture
+  keyGenerators:
+    snowflake:
+      type: SNOWFLAKE
+  auditors:
+    sharding_key_required_auditor:
+      type: DML_SHARDING_CONDITIONS
+
+- !BROADCAST
+  tables:
+    - t_address
+
+props:
+  sql-show: false
